@@ -1,6 +1,6 @@
 package com.g985892345.provider.plugin.gradle
 
-import com.g985892345.provider.plugin.gradle.extensions.KtProviderExtensions
+import com.g985892345.provider.plugin.gradle.extensions.KtRouterExtensions
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Action
 import org.gradle.api.Plugin
@@ -9,26 +9,19 @@ import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.plugins.PluginContainer
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetContainer
 
-/**
- * .
- *
- * @author 985892345
- * 2023/6/13 22:53
- */
-class KtProviderGradlePlugin : Plugin<Project> {
+class KtRouterGradlePlugin : Plugin<Project> {
   
   override fun apply(target: Project) {
-    target.extensions.create("ktProvider", KtProviderExtensions::class.java, target)
-    config(target)
+    target.extensions.create("ktProvider", KtRouterExtensions::class.java, target)
   }
   
   private fun config(project: Project) {
-    val ktProvider = project.extensions.getByType(KtProviderExtensions::class.java)
+    val ktProvider = project.extensions.getByType(KtRouterExtensions::class.java)
     // configDependencies(project, ktProvider)
     transmitKsp(project, ktProvider)
   }
   
-  private fun configDependencies(project: Project, ktProvider: KtProviderExtensions) {
+  private fun configDependencies(project: Project, ktProvider: KtRouterExtensions) {
     project.plugins.withId("org.jetbrains.kotlin.multiplatform") {
       project.extensions
         .getByType(KotlinSourceSetContainer::class.java)
@@ -59,10 +52,10 @@ class KtProviderGradlePlugin : Plugin<Project> {
     }
   }
   
-  private fun transmitKsp(project: Project, ktProvider: KtProviderExtensions) {
-    val ktProviderRouterPackageName = KtProviderExtensions.getPackageName(project)
-    val ktProviderRouterClassName = "${KtProviderExtensions.getClassNameSuffix(project)}KtProviderRouter"
-    val selfInitializerClass = KtProviderExtensions.getInitializerClass(project)
+  private fun transmitKsp(project: Project, ktProvider: KtRouterExtensions) {
+    val ktProviderRouterPackageName = KtRouterExtensions.getPackageName(project)
+    val ktProviderRouterClassName = "${KtRouterExtensions.getClassNameSuffix(project)}KtProviderRouter"
+    val selfInitializerClass = KtRouterExtensions.getInitializerClass(project)
     val initializerPackageName = selfInitializerClass.substringBeforeLast(".")
     val initializerClassName = selfInitializerClass.substringAfterLast(".")
     project.extensions.configure(KspExtension::class.java) {
@@ -77,7 +70,7 @@ class KtProviderGradlePlugin : Plugin<Project> {
           it.arg(
             "ktProviderDependModuleProjects",
             getDependModulePaths(project, ktProvider).joinToString("&") { dependProject ->
-              KtProviderExtensions.getInitializerClass(dependProject)
+              KtRouterExtensions.getInitializerClass(dependProject)
             }
           )
         }
@@ -90,7 +83,7 @@ class KtProviderGradlePlugin : Plugin<Project> {
   }
   
   // Retrieve the paths of all dependent modules.
-  private fun getDependModulePaths(project: Project, ktProvider: KtProviderExtensions): List<Project> {
+  private fun getDependModulePaths(project: Project, ktProvider: KtRouterExtensions): List<Project> {
     val dependProjects = mutableListOf<Project>()
     ktProvider.configurations.mapNotNull {
       project.configurations.findByName(it)

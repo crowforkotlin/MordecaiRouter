@@ -4,13 +4,7 @@ import com.g985892345.provider.plugin.gradle.BuildConfig
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Project
 
-/**
- * .
- *
- * @author 985892345
- * 2023/6/18 12:36
- */
-abstract class KtProviderExtensions(private val project: Project) {
+abstract class KtRouterExtensions(private val project: Project) {
   
   /**
    * Plugin version.
