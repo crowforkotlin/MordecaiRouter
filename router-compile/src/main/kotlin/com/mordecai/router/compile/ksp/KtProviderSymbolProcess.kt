@@ -1,4 +1,4 @@
-package com.g985892345.provider.compile.ksp
+package com.mordecai.router.compile.ksp
 
 import com.g985892345.provider.api.annotation.ImplProvider
 import com.g985892345.provider.api.annotation.KClassProvider

@@ -1,4 +1,4 @@
-package com.g985892345.provider.compile.ksp
+package com.mordecai.router.compile.ksp
 
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
