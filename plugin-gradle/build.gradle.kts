@@ -23,7 +23,7 @@ gradlePlugin {
 
 
 buildConfig {
-  packageName("com.g985892345.provider.plugin.gradle")
+  packageName("com.mordecai.router.plugin.gradle")
   buildConfigField("String", "VERSION", "\"${gradle.parent?.rootProject!!.properties["VERSION"].toString()}\"")
   buildConfigField("String", "GROUP", "\"null\"")
 }
